@@ -21,6 +21,8 @@ public slots:
 private:
     Ui::MainWindow *ui;
     Image * currentImage;
+    void updateEditedImageView(Image * image);
+    void updateOriginalImageView(Image * image);
 };
 
 #endif // MAINWINDOW_H

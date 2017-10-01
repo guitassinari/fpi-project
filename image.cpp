@@ -117,15 +117,14 @@ QImage Image::toQImage(){
     return image;
 }
 
-Image * Image::flipVertically(){
-    Image * flipped = (Image *)malloc(sizeof(this));
-    memcpy(flipped, this, sizeof(this));
+void Image::flipVertically(){
     for(int line = 0; line < floor(this->height/2); line++){
+        int offset = line*this->pixelLineSize();
+        int inverseOffset = (this->height-1-line)*this->pixelLineSize();
         char * buffer = (char *)malloc(this->pixelLineSize());
-        memcpy(buffer, &this->image[line], this->pixelLineSize());
-        memcpy(&this->image[line], &this->image[this->height-line], this->pixelLineSize());
-        memcpy(&this->image[this->height-line], buffer, this->pixelLineSize());
+        memcpy(buffer, &this->image[offset], this->pixelLineSize());
+        memcpy(&this->image[offset], &this->image[inverseOffset], this->pixelLineSize());
+        memcpy(&this->image[inverseOffset], buffer, this->pixelLineSize());
     }
-    return flipped;
 }
 

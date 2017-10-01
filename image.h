@@ -11,7 +11,7 @@ public:
   Image(const char * filePath); //Constructor
   void write(const char * filePath);
   QImage toQImage();
-  Image * flipVertically();
+  void flipVertically();
 private:
   JSAMPLE * image;
   int width;

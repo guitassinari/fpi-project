@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QObject::connect(ui->OpenImageButton, SIGNAL(clicked(bool)),
                          this, SLOT(openImage()));
+    QObject::connect(ui->FlipButton, SIGNAL(clicked(bool)),
+                         this, SLOT(flipVertically()));
 }
 
 MainWindow::~MainWindow()
@@ -25,19 +27,29 @@ void MainWindow::openImage(){
     QString imagePath = ui->lineEdit->text();
     Image * image = new Image(imagePath.toLatin1().data());
     currentImage = image;
-    QImage qimage = image->toQImage();
-    QGraphicsScene * originalImageScene = new QGraphicsScene;
-    QGraphicsScene * editedImageScene = new QGraphicsScene;
-    QGraphicsPixmapItem * originalImageItem = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
-    QGraphicsPixmapItem * editedImageItem = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
-    originalImageScene->addItem(originalImageItem);
-    editedImageScene->addItem(editedImageItem);
-    ui->OriginalImage->setScene(originalImageScene);
-    ui->OriginalImage->show();
-    ui->EditedImage->setScene(editedImageScene);
-    ui->EditedImage->show();
+    updateOriginalImageView(image);
+    updateEditedImageView(image);
 }
 
 void MainWindow::flipVertically(){
+   currentImage->flipVertically();
+   updateEditedImageView(currentImage);
+}
 
+void MainWindow::updateEditedImageView(Image * image){
+    QImage qimage = image->toQImage();
+    QGraphicsScene * scene = new QGraphicsScene;
+    QGraphicsPixmapItem * item = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
+    scene->addItem(item);
+    ui->EditedImage->setScene(scene);
+    ui->EditedImage->show();
+}
+
+void MainWindow::updateOriginalImageView(Image * image){
+    QImage qimage = image->toQImage();
+    QGraphicsScene * scene = new QGraphicsScene;
+    QGraphicsPixmapItem * item = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
+    scene->addItem(item);
+    ui->OriginalImage->setScene(scene);
+    ui->OriginalImage->show();
 }
