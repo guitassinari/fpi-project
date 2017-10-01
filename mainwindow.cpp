@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(flipVertically()));
     QObject::connect(ui->FlipHorizontallyButton, SIGNAL(clicked(bool)),
                          this, SLOT(flipHorizontally()));
+    QObject::connect(ui->SaveImageButton, SIGNAL(clicked(bool)),
+                         this, SLOT(saveImage()));
 }
 
 
@@ -60,4 +62,9 @@ void MainWindow::updateOriginalImageView(Image * image){
     scene->addItem(item);
     ui->OriginalImage->setScene(scene);
     ui->OriginalImage->show();
+}
+
+void MainWindow::saveImage(){
+    QString path = ui->PathToSave->text();
+    currentImage->write(path.toLatin1().data());
 }
