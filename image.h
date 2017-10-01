@@ -12,6 +12,7 @@ public:
   void write(const char * filePath);
   QImage toQImage();
   void flipVertically();
+  void flipHorizontally();
 private:
   JSAMPLE * image;
   int width;

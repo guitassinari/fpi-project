@@ -14,9 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QObject::connect(ui->OpenImageButton, SIGNAL(clicked(bool)),
                          this, SLOT(openImage()));
-    QObject::connect(ui->FlipButton, SIGNAL(clicked(bool)),
+    QObject::connect(ui->FlipVerticallyButton, SIGNAL(clicked(bool)),
                          this, SLOT(flipVertically()));
+    QObject::connect(ui->FlipHorizontallyButton, SIGNAL(clicked(bool)),
+                         this, SLOT(flipHorizontally()));
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -25,15 +28,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::openImage(){
     QString imagePath = ui->lineEdit->text();
-    Image * image = new Image(imagePath.toLatin1().data());
-    currentImage = image;
-    updateOriginalImageView(image);
-    updateEditedImageView(image);
+    currentImage= new Image(imagePath.toLatin1().data());
+    originalImage = new Image(imagePath.toLatin1().data());
+    updateOriginalImageView(originalImage);
+    updateEditedImageView(originalImage);
 }
 
 void MainWindow::flipVertically(){
    currentImage->flipVertically();
    updateEditedImageView(currentImage);
+}
+
+void MainWindow::flipHorizontally(){
+    currentImage->flipHorizontally();
+    updateEditedImageView(currentImage);
 }
 
 void MainWindow::updateEditedImageView(Image * image){

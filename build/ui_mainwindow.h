@@ -30,10 +30,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QPushButton *pushButton;
+    QPushButton *FlipHorizontallyButton;
     QPushButton *pushButton_2;
     QPushButton *OpenImageButton;
-    QPushButton *FlipButton;
+    QPushButton *FlipVerticallyButton;
     QGraphicsView *OriginalImage;
     QGraphicsView *EditedImage;
     QLineEdit *lineEdit;
@@ -46,30 +46,30 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(633, 448);
+        MainWindow->resize(886, 521);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(30, 320, 89, 25));
+        FlipHorizontallyButton = new QPushButton(centralWidget);
+        FlipHorizontallyButton->setObjectName(QStringLiteral("FlipHorizontallyButton"));
+        FlipHorizontallyButton->setGeometry(QRect(600, 390, 261, 25));
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(130, 290, 89, 25));
+        pushButton_2->setGeometry(QRect(460, 360, 131, 25));
         OpenImageButton = new QPushButton(centralWidget);
         OpenImageButton->setObjectName(QStringLiteral("OpenImageButton"));
-        OpenImageButton->setGeometry(QRect(500, 10, 89, 25));
-        FlipButton = new QPushButton(centralWidget);
-        FlipButton->setObjectName(QStringLiteral("FlipButton"));
-        FlipButton->setGeometry(QRect(30, 290, 89, 25));
+        OpenImageButton->setGeometry(QRect(598, 10, 251, 25));
+        FlipVerticallyButton = new QPushButton(centralWidget);
+        FlipVerticallyButton->setObjectName(QStringLiteral("FlipVerticallyButton"));
+        FlipVerticallyButton->setGeometry(QRect(600, 360, 261, 25));
         OriginalImage = new QGraphicsView(centralWidget);
         OriginalImage->setObjectName(QStringLiteral("OriginalImage"));
-        OriginalImage->setGeometry(QRect(30, 60, 256, 192));
+        OriginalImage->setGeometry(QRect(30, 50, 421, 301));
         EditedImage = new QGraphicsView(centralWidget);
         EditedImage->setObjectName(QStringLiteral("EditedImage"));
-        EditedImage->setGeometry(QRect(340, 60, 256, 192));
+        EditedImage->setGeometry(QRect(455, 50, 401, 301));
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(30, 10, 461, 25));
+        lineEdit->setGeometry(QRect(30, 10, 541, 25));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -79,7 +79,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 633, 22));
+        menuBar->setGeometry(QRect(0, 0, 886, 22));
         menuTassinari_s_Phototool = new QMenu(menuBar);
         menuTassinari_s_Phototool->setObjectName(QStringLiteral("menuTassinari_s_Phototool"));
         MainWindow->setMenuBar(menuBar);
@@ -94,10 +94,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "PushButton", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("MainWindow", "PushButton", Q_NULLPTR));
+        FlipHorizontallyButton->setText(QApplication::translate("MainWindow", "Flip Horizontally", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Shades of grey", Q_NULLPTR));
         OpenImageButton->setText(QApplication::translate("MainWindow", "Open Image", Q_NULLPTR));
-        FlipButton->setText(QApplication::translate("MainWindow", "Flip Image", Q_NULLPTR));
+        FlipVerticallyButton->setText(QApplication::translate("MainWindow", "Flip Vertically", Q_NULLPTR));
         menuTassinari_s_Phototool->setTitle(QApplication::translate("MainWindow", "Tassinari's Phototool", Q_NULLPTR));
     } // retranslateUi
 
