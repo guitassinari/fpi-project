@@ -7,9 +7,12 @@ using namespace std;
 
 class Image {
 public:
+  Image();
   Image(const char * filePath); //Constructor
   void write(const char * filePath);
   QImage toQImage();
+  void flipVertically();
+  void flipHorizontally();
 private:
   JSAMPLE * image;
   int width;

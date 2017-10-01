@@ -14,6 +14,9 @@
 
 using namespace std;
 
+Image::Image(){
+}
+
 Image::Image(const char * filePath){
   struct jpeg_decompress_struct cinfo;
 	struct jpeg_error_mgr jerr;
@@ -112,6 +115,33 @@ QImage Image::toQImage(){
         }
     }
     return image;
+}
+
+void Image::flipVertically(){
+    char * buffer = (char *)malloc(this->pixelLineSize());
+    for(int line = 0; line < floor(this->height/2); line++){
+        int offset = line*this->pixelLineSize();
+        int inverseOffset = (this->height-1-line)*this->pixelLineSize();
+        memcpy(buffer, &this->image[offset], this->pixelLineSize());
+        memcpy(&this->image[offset], &this->image[inverseOffset], this->pixelLineSize());
+        memcpy(&this->image[inverseOffset], buffer, this->pixelLineSize());
+    }
+    free(buffer);
+}
+
+void Image::flipHorizontally(){
+    char * buffer = (char *)malloc(this->depth);
+    for(int line = 0; line < this->height; line++){
+        for(int pixel = 0; pixel < floor(this->width/2); pixel++){
+            int lineBeginning = line*this->pixelLineSize();
+            int pixelOffset = lineBeginning+(pixel*this->depth);
+            int inversePixelOffset = lineBeginning+((this->width-1-pixel)*this->depth);
+
+            memcpy(buffer, &this->image[pixelOffset], this->depth);
+            memcpy(&this->image[pixelOffset], &this->image[inversePixelOffset], this->depth);
+            memcpy(&this->image[inversePixelOffset], buffer, this->depth);
+        }
+    }
 }
 
 

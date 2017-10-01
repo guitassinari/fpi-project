@@ -17,9 +17,14 @@ public:
     ~MainWindow();
 public slots:
     void openImage();
+    void flipVertically();
+    void flipHorizontally();
 private:
     Ui::MainWindow *ui;
+    Image * originalImage;
     Image * currentImage;
+    void updateEditedImageView(Image * image);
+    void updateOriginalImageView(Image * image);
 };
 
 #endif // MAINWINDOW_H
