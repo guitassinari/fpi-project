@@ -14,6 +14,9 @@
 
 using namespace std;
 
+Image::Image(){
+}
+
 Image::Image(const char * filePath){
   struct jpeg_decompress_struct cinfo;
 	struct jpeg_error_mgr jerr;
@@ -114,4 +117,15 @@ QImage Image::toQImage(){
     return image;
 }
 
+Image * Image::flipVertically(){
+    Image * flipped = (Image *)malloc(sizeof(this));
+    memcpy(flipped, this, sizeof(this));
+    for(int line = 0; line < floor(this->height/2); line++){
+        char * buffer = (char *)malloc(this->pixelLineSize());
+        memcpy(buffer, &this->image[line], this->pixelLineSize());
+        memcpy(&this->image[line], &this->image[this->height-line], this->pixelLineSize());
+        memcpy(&this->image[this->height-line], buffer, this->pixelLineSize());
+    }
+    return flipped;
+}
 

@@ -17,6 +17,7 @@ public:
     ~MainWindow();
 public slots:
     void openImage();
+    void flipVertically();
 private:
     Ui::MainWindow *ui;
     Image * currentImage;

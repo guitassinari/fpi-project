@@ -26,9 +26,18 @@ void MainWindow::openImage(){
     Image * image = new Image(imagePath.toLatin1().data());
     currentImage = image;
     QImage qimage = image->toQImage();
-    QGraphicsScene * scene = new QGraphicsScene;
-    QGraphicsPixmapItem * item = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
-    scene->addItem(item);
-    ui->OriginalImage->setScene(scene);
+    QGraphicsScene * originalImageScene = new QGraphicsScene;
+    QGraphicsScene * editedImageScene = new QGraphicsScene;
+    QGraphicsPixmapItem * originalImageItem = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
+    QGraphicsPixmapItem * editedImageItem = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
+    originalImageScene->addItem(originalImageItem);
+    editedImageScene->addItem(editedImageItem);
+    ui->OriginalImage->setScene(originalImageScene);
     ui->OriginalImage->show();
+    ui->EditedImage->setScene(editedImageScene);
+    ui->EditedImage->show();
+}
+
+void MainWindow::flipVertically(){
+
 }
