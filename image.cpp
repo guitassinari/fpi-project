@@ -155,4 +155,39 @@ void Image::toGreyScale(){
     }
 }
 
+void Image::quantize(int shadesNumber){
+    unsigned int shadeValues[shadesNumber];
+    unsigned int initialValue = floor(255/(shadesNumber+1));
+    for(int i = 1; i < shadesNumber+1; i++){
+        shadeValues[i-1] = initialValue*i;
+    }
+
+    this->toGreyScale();
+
+    int imageSize = this->imageSize();
+    for(int i = 0; i < imageSize; i += depth){
+        JSAMPLE * rgb = &image[i];
+        unsigned int sample =  rgb[0];
+        unsigned int value = 0;
+        if(sample < shadeValues[0]){
+            value = shadeValues[0];
+        } else if(sample > shadeValues[shadesNumber]){
+            value = shadeValues[shadesNumber];
+        } else {
+            for(int j = 1; j < shadesNumber-1; j++){
+                if(sample >= shadeValues[j] && sample <= shadeValues[j+1]){
+                    if(shadeValues[j+1]-sample >= initialValue){
+                        value = shadeValues[j];
+                    } else {
+                        value = shadeValues[j+1];
+                    }
+                }
+
+            }
+        }
+        rgb[0] = (unsigned char)value;
+        rgb[1] = (unsigned char)value;
+        rgb[2] = (unsigned char)value;
+    }
+}
 
