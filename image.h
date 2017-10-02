@@ -13,6 +13,7 @@ public:
   QImage toQImage();
   void flipVertically();
   void flipHorizontally();
+  void toGreyScale();
 private:
   JSAMPLE * image;
   int width;
