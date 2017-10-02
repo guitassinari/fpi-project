@@ -21,6 +21,7 @@ public slots:
     void flipHorizontally();
     void saveImage();
     void toGreyScale();
+    void quantize();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;

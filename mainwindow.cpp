@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->QuantizationNumber->setEnabled(false);
+    ui->QuantizationButton->setEnabled(false);
+
     QObject::connect(ui->OpenImageButton, SIGNAL(clicked(bool)),
                          this, SLOT(openImage()));
     QObject::connect(ui->FlipVerticallyButton, SIGNAL(clicked(bool)),
@@ -22,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(saveImage()));
     QObject::connect(ui->GreyScaleButton, SIGNAL(clicked(bool)),
                          this, SLOT(toGreyScale()));
+    QObject::connect(ui->QuantizationButton, SIGNAL(clicked(bool)),
+                         this, SLOT(quantize()));
 }
 
 
@@ -73,5 +79,13 @@ void MainWindow::saveImage(){
 
 void MainWindow::toGreyScale(){
     currentImage->toGreyScale();
+    ui->QuantizationButton->setEnabled(true);
+    ui->QuantizationNumber->setEnabled(true);
+    updateEditedImageView(currentImage);
+}
+
+void MainWindow::quantize(){
+    int quantizationNumber = ui->QuantizationNumber->value();
+    currentImage->quantize(quantizationNumber);
     updateEditedImageView(currentImage);
 }

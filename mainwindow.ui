@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>886</width>
-    <height>521</height>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,7 +100,7 @@
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>430</y>
+      <y>470</y>
       <width>251</width>
       <height>25</height>
      </rect>
@@ -113,9 +113,32 @@
     <property name="geometry">
      <rect>
       <x>32</x>
-      <y>430</y>
+      <y>470</y>
       <width>541</width>
       <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="QuantizationButton">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>430</y>
+      <width>261</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Quantization</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="QuantizationNumber">
+    <property name="geometry">
+     <rect>
+      <x>467</x>
+      <y>430</y>
+      <width>121</width>
+      <height>26</height>
      </rect>
     </property>
    </widget>
