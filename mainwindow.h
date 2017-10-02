@@ -19,6 +19,7 @@ public slots:
     void openImage();
     void flipVertically();
     void flipHorizontally();
+    void saveImage();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;

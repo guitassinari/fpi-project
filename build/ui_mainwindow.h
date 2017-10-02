@@ -37,6 +37,8 @@ public:
     QGraphicsView *OriginalImage;
     QGraphicsView *EditedImage;
     QLineEdit *lineEdit;
+    QPushButton *SaveImageButton;
+    QLineEdit *PathToSave;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -70,6 +72,12 @@ public:
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setGeometry(QRect(30, 10, 541, 25));
+        SaveImageButton = new QPushButton(centralWidget);
+        SaveImageButton->setObjectName(QStringLiteral("SaveImageButton"));
+        SaveImageButton->setGeometry(QRect(600, 430, 251, 25));
+        PathToSave = new QLineEdit(centralWidget);
+        PathToSave->setObjectName(QStringLiteral("PathToSave"));
+        PathToSave->setGeometry(QRect(32, 430, 541, 25));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -98,6 +106,7 @@ public:
         pushButton_2->setText(QApplication::translate("MainWindow", "Shades of grey", Q_NULLPTR));
         OpenImageButton->setText(QApplication::translate("MainWindow", "Open Image", Q_NULLPTR));
         FlipVerticallyButton->setText(QApplication::translate("MainWindow", "Flip Vertically", Q_NULLPTR));
+        SaveImageButton->setText(QApplication::translate("MainWindow", "Save Image", Q_NULLPTR));
         menuTassinari_s_Phototool->setTitle(QApplication::translate("MainWindow", "Tassinari's Phototool", Q_NULLPTR));
     } // retranslateUi
 
