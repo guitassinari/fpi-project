@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(flipHorizontally()));
     QObject::connect(ui->SaveImageButton, SIGNAL(clicked(bool)),
                          this, SLOT(saveImage()));
+    QObject::connect(ui->GreyScaleButton, SIGNAL(clicked(bool)),
+                         this, SLOT(toGreyScale()));
 }
 
 
@@ -67,4 +69,9 @@ void MainWindow::updateOriginalImageView(Image * image){
 void MainWindow::saveImage(){
     QString path = ui->PathToSave->text();
     currentImage->write(path.toLatin1().data());
+}
+
+void MainWindow::toGreyScale(){
+    currentImage->toGreyScale();
+    updateEditedImageView(currentImage);
 }

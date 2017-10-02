@@ -105,16 +105,16 @@ int Image::imageSize(){
 }
 
 QImage Image::toQImage(){
-    QImage image(this->width, this->height, QImage::Format_RGB32);
-    image.fill(0);
+    QImage qimage(this->width, this->height, QImage::Format_RGB32);
+    qimage.fill(0);
     for(int i = 0; i < this->height; i++){
         for(int j = 0; j < this->width; j++){
-            unsigned char * rgb = &this->image[(i*this->pixelLineSize()) + (j*3)];
+            JSAMPLE * rgb = &image[(i*this->pixelLineSize()) + (j*3)];
             QRgb value = qRgb(rgb[0], rgb[1], rgb[2]);
-            image.setPixel(j, i, value);
+            qimage.setPixel(j, i, value);
         }
     }
-    return image;
+    return qimage;
 }
 
 void Image::flipVertically(){
@@ -137,10 +137,21 @@ void Image::flipHorizontally(){
             int pixelOffset = lineBeginning+(pixel*this->depth);
             int inversePixelOffset = lineBeginning+((this->width-1-pixel)*this->depth);
 
-            memcpy(buffer, &this->image[pixelOffset], this->depth);
-            memcpy(&this->image[pixelOffset], &this->image[inversePixelOffset], this->depth);
-            memcpy(&this->image[inversePixelOffset], buffer, this->depth);
+            memcpy(buffer, &image[pixelOffset], depth);
+            memcpy(&image[pixelOffset], &image[inversePixelOffset], depth);
+            memcpy(&image[inversePixelOffset], buffer, depth);
         }
+    }
+}
+
+void Image::toGreyScale(){
+    int imageSize = this->imageSize();
+    for(int i = 0; i < imageSize; i += depth){
+        JSAMPLE * rgb = &image[i];
+        unsigned char newValue = (unsigned char)(0.299*(unsigned int)rgb[0] + 0.587*(unsigned int)rgb[1] + 0.114*(unsigned int)rgb[2]);
+        rgb[0] = newValue;
+        rgb[1] = newValue;
+        rgb[2] = newValue;
     }
 }
 

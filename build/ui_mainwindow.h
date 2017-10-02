@@ -31,7 +31,7 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QPushButton *FlipHorizontallyButton;
-    QPushButton *pushButton_2;
+    QPushButton *GreyScaleButton;
     QPushButton *OpenImageButton;
     QPushButton *FlipVerticallyButton;
     QGraphicsView *OriginalImage;
@@ -54,9 +54,9 @@ public:
         FlipHorizontallyButton = new QPushButton(centralWidget);
         FlipHorizontallyButton->setObjectName(QStringLiteral("FlipHorizontallyButton"));
         FlipHorizontallyButton->setGeometry(QRect(600, 390, 261, 25));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(460, 360, 131, 25));
+        GreyScaleButton = new QPushButton(centralWidget);
+        GreyScaleButton->setObjectName(QStringLiteral("GreyScaleButton"));
+        GreyScaleButton->setGeometry(QRect(460, 360, 131, 25));
         OpenImageButton = new QPushButton(centralWidget);
         OpenImageButton->setObjectName(QStringLiteral("OpenImageButton"));
         OpenImageButton->setGeometry(QRect(598, 10, 251, 25));
@@ -103,7 +103,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         FlipHorizontallyButton->setText(QApplication::translate("MainWindow", "Flip Horizontally", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Shades of grey", Q_NULLPTR));
+        GreyScaleButton->setText(QApplication::translate("MainWindow", "Shades of grey", Q_NULLPTR));
         OpenImageButton->setText(QApplication::translate("MainWindow", "Open Image", Q_NULLPTR));
         FlipVerticallyButton->setText(QApplication::translate("MainWindow", "Flip Vertically", Q_NULLPTR));
         SaveImageButton->setText(QApplication::translate("MainWindow", "Save Image", Q_NULLPTR));

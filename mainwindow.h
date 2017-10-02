@@ -20,6 +20,7 @@ public slots:
     void flipVertically();
     void flipHorizontally();
     void saveImage();
+    void toGreyScale();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;
