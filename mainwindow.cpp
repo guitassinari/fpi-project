@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(toGreyScale()));
     QObject::connect(ui->QuantizationButton, SIGNAL(clicked(bool)),
                          this, SLOT(quantize()));
+    QObject::connect(ui->NegativeButton, SIGNAL(clicked(bool)),
+                         this, SLOT(negative()));
 }
 
 
@@ -87,5 +89,10 @@ void MainWindow::toGreyScale(){
 void MainWindow::quantize(){
     int quantizationNumber = ui->QuantizationNumber->value();
     currentImage->quantize(quantizationNumber);
+    updateEditedImageView(currentImage);
+}
+
+void MainWindow::negative(){
+    currentImage->negative();
     updateEditedImageView(currentImage);
 }

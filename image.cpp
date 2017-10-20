@@ -107,13 +107,26 @@ int Image::imageSize(){
 QImage Image::toQImage(){
     QImage qimage(this->width, this->height, QImage::Format_RGB32);
     qimage.fill(0);
-    for(int i = 0; i < this->height; i++){
-        for(int j = 0; j < this->width; j++){
-            JSAMPLE * rgb = &image[(i*this->pixelLineSize()) + (j*3)];
-            QRgb value = qRgb(rgb[0], rgb[1], rgb[2]);
-            qimage.setPixel(j, i, value);
+    int imageSize = this->imageSize();
+    JSAMPLE * parsedRgb = (JSAMPLE*)malloc(sizeof(JSAMPLE)*3);
+
+    for(int i = 0; i <imageSize; i += depth){
+        JSAMPLE * rgb = &image[i];
+        if(depth == 1){
+            parsedRgb[0] = rgb[0];
+            parsedRgb[1] = rgb[0];
+            parsedRgb[2] = rgb[0];
+        } else {
+            parsedRgb[0] = rgb[0];
+            parsedRgb[1] = rgb[1];
+            parsedRgb[2] = rgb[2];
         }
+        QRgb value = qRgb(parsedRgb[0], parsedRgb[1], parsedRgb[2]);
+        int line = floor((i/depth)/width);
+        int column = floor((i/depth)%width);
+        qimage.setPixel(column, line, value);
     }
+    free(parsedRgb);
     return qimage;
 }
 
@@ -149,9 +162,9 @@ void Image::toGreyScale(){
     for(int i = 0; i < imageSize; i += depth){
         JSAMPLE * rgb = &image[i];
         unsigned char newValue = (unsigned char)(0.299*(unsigned int)rgb[0] + 0.587*(unsigned int)rgb[1] + 0.114*(unsigned int)rgb[2]);
-        rgb[0] = newValue;
-        rgb[1] = newValue;
-        rgb[2] = newValue;
+        for(int j = 0; j < depth; j++){
+            rgb[j] = newValue;
+        }
     }
 }
 
@@ -185,9 +198,20 @@ void Image::quantize(int shadesNumber){
 
             }
         }
-        rgb[0] = (unsigned char)value;
-        rgb[1] = (unsigned char)value;
-        rgb[2] = (unsigned char)value;
+
+        for(int j = 0; j < depth; j++){
+            rgb[j] = (unsigned char)value;
+        }
+    }
+}
+
+void Image::negative(){
+    int imageSize = this->imageSize();
+    for(int i = 0; i < imageSize; i += depth){
+        JSAMPLE * rgb = &image[i];
+        for(int j = 0; j < depth; j++){
+            rgb[j] = (unsigned char)(255 - rgb[j]);
+        }
     }
 }
 

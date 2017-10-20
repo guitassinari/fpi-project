@@ -22,6 +22,7 @@ public slots:
     void saveImage();
     void toGreyScale();
     void quantize();
+    void negative();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;

@@ -42,6 +42,7 @@ public:
     QLineEdit *PathToSave;
     QPushButton *QuantizationButton;
     QSpinBox *QuantizationNumber;
+    QPushButton *NegativeButton;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -51,7 +52,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(886, 593);
+        MainWindow->resize(973, 676);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         FlipHorizontallyButton = new QPushButton(centralWidget);
@@ -77,16 +78,19 @@ public:
         lineEdit->setGeometry(QRect(30, 10, 541, 25));
         SaveImageButton = new QPushButton(centralWidget);
         SaveImageButton->setObjectName(QStringLiteral("SaveImageButton"));
-        SaveImageButton->setGeometry(QRect(600, 470, 251, 25));
+        SaveImageButton->setGeometry(QRect(608, 580, 251, 25));
         PathToSave = new QLineEdit(centralWidget);
         PathToSave->setObjectName(QStringLiteral("PathToSave"));
-        PathToSave->setGeometry(QRect(32, 470, 541, 25));
+        PathToSave->setGeometry(QRect(40, 580, 541, 25));
         QuantizationButton = new QPushButton(centralWidget);
         QuantizationButton->setObjectName(QStringLiteral("QuantizationButton"));
-        QuantizationButton->setGeometry(QRect(600, 430, 261, 25));
+        QuantizationButton->setGeometry(QRect(600, 420, 261, 25));
         QuantizationNumber = new QSpinBox(centralWidget);
         QuantizationNumber->setObjectName(QStringLiteral("QuantizationNumber"));
-        QuantizationNumber->setGeometry(QRect(467, 430, 121, 26));
+        QuantizationNumber->setGeometry(QRect(457, 420, 131, 26));
+        NegativeButton = new QPushButton(centralWidget);
+        NegativeButton->setObjectName(QStringLiteral("NegativeButton"));
+        NegativeButton->setGeometry(QRect(600, 450, 261, 25));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -96,7 +100,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 886, 22));
+        menuBar->setGeometry(QRect(0, 0, 973, 22));
         menuTassinari_s_Phototool = new QMenu(menuBar);
         menuTassinari_s_Phototool->setObjectName(QStringLiteral("menuTassinari_s_Phototool"));
         MainWindow->setMenuBar(menuBar);
@@ -117,6 +121,7 @@ public:
         FlipVerticallyButton->setText(QApplication::translate("MainWindow", "Flip Vertically", Q_NULLPTR));
         SaveImageButton->setText(QApplication::translate("MainWindow", "Save Image", Q_NULLPTR));
         QuantizationButton->setText(QApplication::translate("MainWindow", "Quantization", Q_NULLPTR));
+        NegativeButton->setText(QApplication::translate("MainWindow", "Negative", Q_NULLPTR));
         menuTassinari_s_Phototool->setTitle(QApplication::translate("MainWindow", "Tassinari's Phototool", Q_NULLPTR));
     } // retranslateUi
 
