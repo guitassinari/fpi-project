@@ -15,6 +15,7 @@ public:
   void flipHorizontally();
   void toGreyScale();
   void quantize(int shadeNumbers);
+  void negative();
 private:
   JSAMPLE * image;
   int width;
