@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(quantize()));
     QObject::connect(ui->NegativeButton, SIGNAL(clicked(bool)),
                          this, SLOT(negative()));
+    QObject::connect(ui->RotateButton, SIGNAL(clicked(bool)),
+                         this, SLOT(rotate()));
 }
 
 
@@ -94,5 +96,10 @@ void MainWindow::quantize(){
 
 void MainWindow::negative(){
     currentImage->negative();
+    updateEditedImageView(currentImage);
+}
+
+void MainWindow::rotate(){
+    currentImage->rotate();
     updateEditedImageView(currentImage);
 }

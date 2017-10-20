@@ -16,6 +16,7 @@ public:
   void toGreyScale();
   void quantize(int shadeNumbers);
   void negative();
+  void rotate();
 private:
   JSAMPLE * image;
   int width;
