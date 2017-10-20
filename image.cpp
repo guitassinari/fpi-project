@@ -215,3 +215,37 @@ void Image::negative(){
     }
 }
 
+void Image::rotate(){
+    int imageSize = this->imageSize();
+
+    //Changes coordinate sizes
+    int newWidth = height;
+    int newHeight = width;
+
+    JSAMPLE * rotatedImage = (JSAMPLE*)malloc(imageSize);
+    JSAMPLE * rotatedImageIterator = rotatedImage;
+
+    int rotatedImageOffset = 0;
+    int currentColumn = 0;
+    int currentLine = 0;
+    int newColumn = newWidth;
+    int newLine = 0;
+    for(int i = 0; i < imageSize; i += depth){
+        rotatedImageOffset = (newLine*newWidth + newColumn)*depth;
+        rotatedImageIterator = &rotatedImage[rotatedImageOffset];
+        memcpy(rotatedImageIterator, &image[i], sizeof(JSAMPLE)*depth);
+
+        currentColumn = (i/3) % (width);
+        newLine = currentColumn;
+        if(i > 0 && (i/3) % (width) == 0){
+            currentLine++;
+            newColumn--;
+        }
+    }
+
+    width = newWidth;
+    height = newHeight;
+    free(image);
+    image = rotatedImage;
+}
+

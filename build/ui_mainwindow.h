@@ -43,6 +43,7 @@ public:
     QPushButton *QuantizationButton;
     QSpinBox *QuantizationNumber;
     QPushButton *NegativeButton;
+    QPushButton *RotateButton;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -91,6 +92,9 @@ public:
         NegativeButton = new QPushButton(centralWidget);
         NegativeButton->setObjectName(QStringLiteral("NegativeButton"));
         NegativeButton->setGeometry(QRect(600, 450, 261, 25));
+        RotateButton = new QPushButton(centralWidget);
+        RotateButton->setObjectName(QStringLiteral("RotateButton"));
+        RotateButton->setGeometry(QRect(600, 480, 261, 25));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -122,6 +126,7 @@ public:
         SaveImageButton->setText(QApplication::translate("MainWindow", "Save Image", Q_NULLPTR));
         QuantizationButton->setText(QApplication::translate("MainWindow", "Quantization", Q_NULLPTR));
         NegativeButton->setText(QApplication::translate("MainWindow", "Negative", Q_NULLPTR));
+        RotateButton->setText(QApplication::translate("MainWindow", "Rotate", Q_NULLPTR));
         menuTassinari_s_Phototool->setTitle(QApplication::translate("MainWindow", "Tassinari's Phototool", Q_NULLPTR));
     } // retranslateUi
 

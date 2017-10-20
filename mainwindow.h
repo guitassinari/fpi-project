@@ -23,6 +23,7 @@ public slots:
     void toGreyScale();
     void quantize();
     void negative();
+    void rotate();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;
