@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->QuantizationNumber->setEnabled(false);
     ui->QuantizationButton->setEnabled(false);
     ui->HistogramButton->setEnabled(false);
+    ui->EqualizeHistogramButton->setEnabled(false);
 
     QObject::connect(ui->OpenImageButton, SIGNAL(clicked(bool)),
                          this, SLOT(openImage()));
@@ -39,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(enhanceContrast()));
     QObject::connect(ui->BrightnessButton, SIGNAL(clicked(bool)),
                          this, SLOT(enhanceBrightness()));
+    QObject::connect(ui->EqualizeHistogramButton, SIGNAL(clicked(bool)),
+                         this, SLOT(equalizeHistogram()));
 }
 
 
@@ -53,6 +56,10 @@ void MainWindow::openImage(){
     originalImage = new Image(imagePath.toLatin1().data());
     updateOriginalImageView(originalImage);
     updateEditedImageView(originalImage);
+    ui->QuantizationNumber->setEnabled(false);
+    ui->QuantizationButton->setEnabled(false);
+    ui->HistogramButton->setEnabled(false);
+    ui->EqualizeHistogramButton->setEnabled(false);
 }
 
 void MainWindow::flipVertically(){
@@ -102,6 +109,7 @@ void MainWindow::toGreyScale(){
     currentImage->toGreyScale();
     ui->QuantizationButton->setEnabled(true);
     ui->QuantizationNumber->setEnabled(true);
+    ui->EqualizeHistogramButton->setEnabled(true);
     ui->HistogramButton->setEnabled(true);
     updateEditedImageView(currentImage);
 }
@@ -135,5 +143,11 @@ void MainWindow::enhanceBrightness(){
 void MainWindow::enhanceContrast(){
     double contrastValue = ui->ContrastValue->value();
     currentImage->enhanceContrast(contrastValue);
+    updateEditedImageView(currentImage);
+}
+
+void MainWindow::equalizeHistogram(){
+    currentImage->equalizeHistogram();
+    showHistogram();
     updateEditedImageView(currentImage);
 }

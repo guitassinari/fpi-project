@@ -20,6 +20,7 @@ public:
   void rotate();
   void enhanceBrightness(int brightnessValue);
   void enhanceContrast(double contrastValue);
+  void equalizeHistogram();
 private:
   JSAMPLE * image;
   JSAMPLE * histogram;
@@ -28,4 +29,5 @@ private:
   int depth;
   int pixelLineSize();
   int imageSize();
+  void calculateHistogram(int * arr);
 };

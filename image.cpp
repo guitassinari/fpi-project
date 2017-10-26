@@ -251,36 +251,26 @@ void Image::rotate(){
 }
 
 QImage Image::getHistogram(){
-    int imageSize = this->imageSize();
     int histogramValues[256];
-    for(int i = 0; i < 256; i++){
-        histogramValues[i] = 0;
-    }
+    this->calculateHistogram(histogramValues);
 
     int maxValue = 0;
-
-    for(int i = 0; i < imageSize; i += depth){
-      int greyValue = (int)image[i];
-      histogramValues[greyValue] += 1;
-      if(histogramValues[greyValue] > maxValue){
-          maxValue = histogramValues[greyValue];
-      }
+    for(int i = 0; i < 256; i++){
+        if(histogramValues[i] > maxValue){
+            maxValue = histogramValues[i];
+        }
     }
 
     float normalization = 256.0/maxValue;
 
     for(int i = 0; i < 256; i++){
-        printf("OLD: %d -", histogramValues[i]);
         histogramValues[i] = (int)floor(histogramValues[i]*normalization);
-        printf("NEW: %d\n", histogramValues[i]);
     }
-
 
     int histogramSize = 256*256;
     if(this->histogram == NULL){
         this->histogram = (JSAMPLE *)malloc(sizeof(JSAMPLE) * histogramSize);
     }
-
 
     QImage qimage(256, 256, QImage::Format_RGB32);
     qimage.fill(0);
@@ -335,6 +325,42 @@ void Image::enhanceContrast(double bias){
             newValue = 0;
         }
         *iterator = (unsigned char)newValue;
+    }
+}
+
+void Image::equalizeHistogram(){
+    int imageSize = this->imageSize();
+    int histogramValues[256];
+    float cumulative[256];
+    this->calculateHistogram(histogramValues);
+
+    float a = 255.0/imageSize;
+
+    cumulative[0] = a * histogramValues[0];
+
+    for(int i = 1; i < 256; i++){
+        cumulative[i] = cumulative[i-1] + a * histogramValues[i];
+    }
+    printf("\n");
+
+    for(int i = 0; i < imageSize; i += depth){
+        int pixelColor = (int)image[i];
+        int newColor = (int)floor(cumulative[pixelColor]);
+        for(int j = 0; j < depth; j++){
+            image[i+j] = (unsigned char)newColor;
+        }
+    }
+}
+
+void Image::calculateHistogram(int * histogramValues){
+    int imageSize = this->imageSize();
+    for(int i = 0; i < 256; i++){
+        histogramValues[i] = 0;
+    }
+
+    for(int i = 0; i < imageSize; i += depth){
+      int greyValue = (int)image[i];
+      histogramValues[greyValue] += depth;
     }
 }
 
