@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>973</width>
+    <width>1212</width>
     <height>676</height>
    </rect>
   </property>
@@ -168,6 +168,29 @@
      <string>Rotate</string>
     </property>
    </widget>
+   <widget class="QGraphicsView" name="Histogram">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>50</y>
+      <width>256</width>
+      <height>256</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="HistogramButton">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>310</y>
+      <width>261</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Calculate Histogram</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -183,7 +206,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>973</width>
+     <width>1212</width>
      <height>22</height>
     </rect>
    </property>

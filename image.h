@@ -11,6 +11,7 @@ public:
   Image(const char * filePath); //Constructor
   void write(const char * filePath);
   QImage toQImage();
+  QImage getHistogram();
   void flipVertically();
   void flipHorizontally();
   void toGreyScale();
@@ -19,6 +20,7 @@ public:
   void rotate();
 private:
   JSAMPLE * image;
+  JSAMPLE * histogram;
   int width;
   int height;
   int depth;

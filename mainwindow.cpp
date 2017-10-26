@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->QuantizationNumber->setEnabled(false);
     ui->QuantizationButton->setEnabled(false);
+    ui->HistogramButton->setEnabled(false);
 
     QObject::connect(ui->OpenImageButton, SIGNAL(clicked(bool)),
                          this, SLOT(openImage()));
@@ -32,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(negative()));
     QObject::connect(ui->RotateButton, SIGNAL(clicked(bool)),
                          this, SLOT(rotate()));
+    QObject::connect(ui->HistogramButton, SIGNAL(clicked(bool)),
+                         this, SLOT(showHistogram()));
 }
 
 
@@ -76,6 +79,16 @@ void MainWindow::updateOriginalImageView(Image * image){
     ui->OriginalImage->show();
 }
 
+void MainWindow::updateHistogramView(Image * image){
+    QImage qimage = image->getHistogram();
+    updateEditedImageView(image);
+    QGraphicsScene * scene = new QGraphicsScene;
+    QGraphicsPixmapItem * item = new QGraphicsPixmapItem(QPixmap::fromImage(qimage));
+    scene->addItem(item);
+    ui->Histogram->setScene(scene);
+    ui->Histogram->show();
+}
+
 void MainWindow::saveImage(){
     QString path = ui->PathToSave->text();
     currentImage->write(path.toLatin1().data());
@@ -85,6 +98,7 @@ void MainWindow::toGreyScale(){
     currentImage->toGreyScale();
     ui->QuantizationButton->setEnabled(true);
     ui->QuantizationNumber->setEnabled(true);
+    ui->HistogramButton->setEnabled(true);
     updateEditedImageView(currentImage);
 }
 
@@ -102,4 +116,8 @@ void MainWindow::negative(){
 void MainWindow::rotate(){
     currentImage->rotate();
     updateEditedImageView(currentImage);
+}
+
+void MainWindow::showHistogram(){
+    updateHistogramView(currentImage);
 }
