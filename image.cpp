@@ -257,14 +257,24 @@ QImage Image::getHistogram(){
         histogramValues[i] = 0;
     }
 
+    int maxValue = 0;
+
     for(int i = 0; i < imageSize; i += depth){
       int greyValue = (int)image[i];
       histogramValues[greyValue] += 1;
+      if(histogramValues[greyValue] > maxValue){
+          maxValue = histogramValues[greyValue];
+      }
     }
 
+    float normalization = 256.0/maxValue;
+
     for(int i = 0; i < 256; i++){
-        printf("Coluna %d, valor %d\n", i, histogramValues[i]);
+        printf("OLD: %d -", histogramValues[i]);
+        histogramValues[i] = (int)floor(histogramValues[i]*normalization);
+        printf("NEW: %d\n", histogramValues[i]);
     }
+
 
     int histogramSize = 256*256;
     if(this->histogram == NULL){
@@ -278,7 +288,7 @@ QImage Image::getHistogram(){
     int currentLine = 0;
     int currentColumn = 0;
     int value = 0;
-    for(int i = 0; i < histogramSize; i += depth){
+    for(int i = 0; i < histogramSize; i++){
         currentLine = (int)floor(i/256);
         currentColumn = (int)i%256;
         if(histogramValues[currentColumn] >= (255-currentLine)){
@@ -287,7 +297,6 @@ QImage Image::getHistogram(){
             value = 255;
         }
         this->histogram[i] = value;
-//        printf("Linha: %d, Coluna %d, valor: %d\n", currentLine, currentColumn, value);
         QRgb rgbValue = qRgb(value, value, value);
         qimage.setPixel(currentColumn, currentLine, rgbValue);
     }
