@@ -305,3 +305,37 @@ QImage Image::getHistogram(){
     return qimage;
 }
 
+void Image::enhanceBrightness(int bias){
+    int imageSize = this->imageSize();
+    unsigned char unsignedBias = (unsigned char)bias;
+    JSAMPLE * iterator = image;
+    for(int i = 0;i < imageSize; i++){
+        iterator = &image[i];
+        int newValue = *iterator + unsignedBias;
+        if(newValue > 255){
+            newValue = 255;
+        }
+        if(newValue < 0){
+            newValue = 0;
+        }
+        *iterator = (unsigned char)newValue;
+    }
+}
+
+void Image::enhanceContrast(double bias){
+    int imageSize = this->imageSize();
+    JSAMPLE * iterator = image;
+    for(int i = 0;i < imageSize; i++){
+        iterator = &image[i];
+        int newValue = (int)floor((*iterator)*bias);
+        if(newValue > 255){
+            newValue = 255;
+        }
+        if(newValue < 0){
+            newValue = 0;
+        }
+        *iterator = (unsigned char)newValue;
+    }
+}
+
+

@@ -25,6 +25,8 @@ public slots:
     void negative();
     void rotate();
     void showHistogram();
+    void enhanceContrast();
+    void enhanceBrightness();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;

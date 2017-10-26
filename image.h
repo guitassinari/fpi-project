@@ -18,6 +18,8 @@ public:
   void quantize(int shadeNumbers);
   void negative();
   void rotate();
+  void enhanceBrightness(int brightnessValue);
+  void enhanceContrast(double contrastValue);
 private:
   JSAMPLE * image;
   JSAMPLE * histogram;
