@@ -35,6 +35,10 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(rotate()));
     QObject::connect(ui->HistogramButton, SIGNAL(clicked(bool)),
                          this, SLOT(showHistogram()));
+    QObject::connect(ui->ContrastButton, SIGNAL(clicked(bool)),
+                         this, SLOT(enhanceContrast()));
+    QObject::connect(ui->BrightnessButton, SIGNAL(clicked(bool)),
+                         this, SLOT(enhanceBrightness()));
 }
 
 
@@ -120,4 +124,16 @@ void MainWindow::rotate(){
 
 void MainWindow::showHistogram(){
     updateHistogramView(currentImage);
+}
+
+void MainWindow::enhanceBrightness(){
+    int brightnessValue = ui->QuantizationNumber->value();
+    currentImage->enhanceBrightness(brightnessValue);
+    updateEditedImageView(currentImage);
+}
+
+void MainWindow::enhanceContrast(){
+    double contrastValue = ui->ContrastValue->value();
+    currentImage->enhanceContrast(contrastValue);
+    updateEditedImageView(currentImage);
 }
