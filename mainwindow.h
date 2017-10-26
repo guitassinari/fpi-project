@@ -24,12 +24,14 @@ public slots:
     void quantize();
     void negative();
     void rotate();
+    void showHistogram();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;
     Image * currentImage;
     void updateEditedImageView(Image * image);
     void updateOriginalImageView(Image * image);
+    void updateHistogramView(Image * image);
 };
 
 #endif // MAINWINDOW_H

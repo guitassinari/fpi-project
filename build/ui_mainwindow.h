@@ -44,6 +44,8 @@ public:
     QSpinBox *QuantizationNumber;
     QPushButton *NegativeButton;
     QPushButton *RotateButton;
+    QGraphicsView *Histogram;
+    QPushButton *HistogramButton;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -53,7 +55,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(973, 676);
+        MainWindow->resize(1212, 676);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         FlipHorizontallyButton = new QPushButton(centralWidget);
@@ -95,6 +97,12 @@ public:
         RotateButton = new QPushButton(centralWidget);
         RotateButton->setObjectName(QStringLiteral("RotateButton"));
         RotateButton->setGeometry(QRect(600, 480, 261, 25));
+        Histogram = new QGraphicsView(centralWidget);
+        Histogram->setObjectName(QStringLiteral("Histogram"));
+        Histogram->setGeometry(QRect(860, 50, 256, 256));
+        HistogramButton = new QPushButton(centralWidget);
+        HistogramButton->setObjectName(QStringLiteral("HistogramButton"));
+        HistogramButton->setGeometry(QRect(860, 310, 261, 25));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -104,7 +112,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 973, 22));
+        menuBar->setGeometry(QRect(0, 0, 1212, 22));
         menuTassinari_s_Phototool = new QMenu(menuBar);
         menuTassinari_s_Phototool->setObjectName(QStringLiteral("menuTassinari_s_Phototool"));
         MainWindow->setMenuBar(menuBar);
@@ -127,6 +135,7 @@ public:
         QuantizationButton->setText(QApplication::translate("MainWindow", "Quantization", Q_NULLPTR));
         NegativeButton->setText(QApplication::translate("MainWindow", "Negative", Q_NULLPTR));
         RotateButton->setText(QApplication::translate("MainWindow", "Rotate", Q_NULLPTR));
+        HistogramButton->setText(QApplication::translate("MainWindow", "Calculate Histogram", Q_NULLPTR));
         menuTassinari_s_Phototool->setTitle(QApplication::translate("MainWindow", "Tassinari's Phototool", Q_NULLPTR));
     } // retranslateUi
 

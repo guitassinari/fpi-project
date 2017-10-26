@@ -52,6 +52,7 @@ Image::Image(const char * filePath){
   }
 
   jpeg_finish_decompress(&cinfo);
+  this->histogram = NULL;
 }
 
 void Image::write(const char * filePath){
@@ -247,5 +248,51 @@ void Image::rotate(){
     height = newHeight;
     free(image);
     image = rotatedImage;
+}
+
+QImage Image::getHistogram(){
+    int imageSize = this->imageSize();
+    int histogramValues[256];
+    for(int i = 0; i < 256; i++){
+        histogramValues[i] = 0;
+    }
+
+    for(int i = 0; i < imageSize; i += depth){
+      int greyValue = (int)image[i];
+      histogramValues[greyValue] += 1;
+    }
+
+    for(int i = 0; i < 256; i++){
+        printf("Coluna %d, valor %d\n", i, histogramValues[i]);
+    }
+
+    int histogramSize = 256*256;
+    if(this->histogram == NULL){
+        this->histogram = (JSAMPLE *)malloc(sizeof(JSAMPLE) * histogramSize);
+    }
+
+
+    QImage qimage(256, 256, QImage::Format_RGB32);
+    qimage.fill(0);
+
+    int currentLine = 0;
+    int currentColumn = 0;
+    int value = 0;
+    for(int i = 0; i < histogramSize; i += depth){
+        currentLine = (int)floor(i/256);
+        currentColumn = (int)i%256;
+        if(histogramValues[currentColumn] >= (255-currentLine)){
+            value = 0;
+        } else {
+            value = 255;
+        }
+        this->histogram[i] = value;
+//        printf("Linha: %d, Coluna %d, valor: %d\n", currentLine, currentColumn, value);
+        QRgb rgbValue = qRgb(value, value, value);
+        qimage.setPixel(currentColumn, currentLine, rgbValue);
+    }
+
+
+    return qimage;
 }
 
