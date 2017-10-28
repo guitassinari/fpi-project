@@ -50,6 +50,7 @@ public:
     QPushButton *ContrastButton;
     QPushButton *BrightnessButton;
     QDoubleSpinBox *ContrastValue;
+    QPushButton *ZoomInButton;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -116,6 +117,9 @@ public:
         ContrastValue = new QDoubleSpinBox(centralWidget);
         ContrastValue->setObjectName(QStringLiteral("ContrastValue"));
         ContrastValue->setGeometry(QRect(880, 260, 121, 31));
+        ZoomInButton = new QPushButton(centralWidget);
+        ZoomInButton->setObjectName(QStringLiteral("ZoomInButton"));
+        ZoomInButton->setGeometry(QRect(880, 110, 261, 25));
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -151,6 +155,7 @@ public:
         HistogramButton->setText(QApplication::translate("MainWindow", "Calculate Histogram", Q_NULLPTR));
         ContrastButton->setText(QApplication::translate("MainWindow", "Contrast", Q_NULLPTR));
         BrightnessButton->setText(QApplication::translate("MainWindow", "Brightness", Q_NULLPTR));
+        ZoomInButton->setText(QApplication::translate("MainWindow", "Zoom In", Q_NULLPTR));
         menuTassinari_s_Phototool->setTitle(QApplication::translate("MainWindow", "Tassinari's Phototool", Q_NULLPTR));
     } // retranslateUi
 

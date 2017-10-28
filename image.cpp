@@ -270,9 +270,7 @@ QImage Image::getHistogram(){
     float normalization = 256.0/maxValue;
 
     for(int i = 0; i < 256; i++){
-        printf("OLD: %d -", histogramValues[i]);
         histogramValues[i] = (int)floor(histogramValues[i]*normalization);
-        printf("NEW: %d\n", histogramValues[i]);
     }
 
 
@@ -338,4 +336,57 @@ void Image::enhanceContrast(double bias){
     }
 }
 
+void Image::zoomIn(){
+    int imageSize = this->imageSize();
+    int zoomedImageSize = imageSize*4;
+    JSAMPLE * zoomedImage = (JSAMPLE *)malloc(sizeof(JSAMPLE)*zoomedImageSize);
+
+    int currentLine = 0;
+    int currentColumn = 0;
+    for(int i = 0; i < zoomedImageSize; i += (2*depth)){
+        if(i > 0){
+            currentColumn++;
+            if(i%(this->width*2) == 0){
+                currentLine++;
+                currentColumn = 0;
+            }
+        }
+
+        //Set current pixel color
+        zoomedImage[i] = image[i/2];
+
+        if(currentColumn > 0){
+            //Not on a left border. Can interpolate left pixel
+            for(int j = 0; j < depth; j++){
+                zoomedImage[i-depth+j] = (unsigned char)floor((zoomedImage[i+j] +image[(i/2)-1+j])/2);
+            }
+        }
+
+        if(currentColumn < this->width*2){
+            //Not on a right border. Can interpolate right pixel
+            for(int j = 0; j < depth; j++){
+                zoomedImage[i+depth+j] = (unsigned char)floor((zoomedImage[i+j] +image[(i/2)+1+j])/2);
+            }
+        }
+
+        if(currentLine > 0){
+            //Not on upper border. Can interpolate upper pixel
+            for(int j = 0; j < depth; j++){
+                zoomedImage[j+i-(this->width*2*depth)] = (unsigned char)floor((zoomedImage[i+j]+image[j+(i/2)-(this->width*depth)])/2);
+            }
+        }
+
+        if(currentLine < this->height*2){
+            //Not on lower border. Can interpolater lower pixel
+            for(int j = 0; j < depth; j++){
+                zoomedImage[i+(this->width*2*depth)+j] = (unsigned char)floor((zoomedImage[i+j]+image[j+(i/2)+(this->width*depth)])/2);
+            }
+        }
+    }
+
+    free(this->image);
+    this->width = this->width*2;
+    this->height= this->height*2;
+    this->image = zoomedImage;
+}
 

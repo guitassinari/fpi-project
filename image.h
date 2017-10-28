@@ -20,6 +20,7 @@ public:
   void rotate();
   void enhanceBrightness(int brightnessValue);
   void enhanceContrast(double contrastValue);
+  void zoomIn();
 private:
   JSAMPLE * image;
   JSAMPLE * histogram;

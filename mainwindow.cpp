@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(enhanceContrast()));
     QObject::connect(ui->BrightnessButton, SIGNAL(clicked(bool)),
                          this, SLOT(enhanceBrightness()));
+    QObject::connect(ui->ZoomInButton, SIGNAL(clicked(bool)),
+                         this, SLOT(zoomIn()));
 }
 
 
@@ -135,5 +137,10 @@ void MainWindow::enhanceBrightness(){
 void MainWindow::enhanceContrast(){
     double contrastValue = ui->ContrastValue->value();
     currentImage->enhanceContrast(contrastValue);
+    updateEditedImageView(currentImage);
+}
+
+void MainWindow::zoomIn(){
+    currentImage->zoomIn();
     updateEditedImageView(currentImage);
 }
