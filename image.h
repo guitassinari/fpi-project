@@ -20,6 +20,7 @@ public:
   void rotate();
   void enhanceBrightness(int brightnessValue);
   void enhanceContrast(double contrastValue);
+  void convolute(float values[]);
 private:
   JSAMPLE * image;
   JSAMPLE * histogram;

@@ -27,6 +27,7 @@ public slots:
     void showHistogram();
     void enhanceContrast();
     void enhanceBrightness();
+    void convolute();
 private:
     Ui::MainWindow *ui;
     Image * originalImage;

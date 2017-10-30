@@ -27,7 +27,7 @@ Image::Image(const char * filePath){
   image = fopen(filePath, "rb");
   if(image == NULL){
     fprintf(stderr, "Não foi possível abrir %s\n", filePath);
-    exit(1);
+    return;
   }
 
   jpeg_stdio_src(&cinfo, image);
@@ -67,8 +67,8 @@ void Image::write(const char * filePath){
   destinationFile = fopen(filePath, "wb");
   if (destinationFile == NULL) {
     fprintf(stderr, "can't open %s\n", filePath);
-    exit(1);
-	}
+    return;
+  }
 
   jpeg_stdio_dest(&cinfo, destinationFile);
 
@@ -270,9 +270,7 @@ QImage Image::getHistogram(){
     float normalization = 256.0/maxValue;
 
     for(int i = 0; i < 256; i++){
-        printf("OLD: %d -", histogramValues[i]);
         histogramValues[i] = (int)floor(histogramValues[i]*normalization);
-        printf("NEW: %d\n", histogramValues[i]);
     }
 
 
@@ -339,3 +337,27 @@ void Image::enhanceContrast(double bias){
 }
 
 
+void Image::convolute(float base[]){
+    int imageSize = this->imageSize();
+    for(int i = 0; i < imageSize; i+=depth){
+        if(i < this->width || i > (height-1)*width*depth || i%(width*depth) == 0 || i%(width*depth) == ((width*depth)-depth)){
+        } else {
+            int upperPixel = i-width*depth;
+            int lowerPixel = i+width*depth;
+            for(int j = 0; j < depth; j++){
+                float newValue = base[8]*image[upperPixel-depth+j]+base[7]*image[upperPixel+j]+base[6]*image[upperPixel+depth+j];
+                newValue += base[5]*image[i-depth+j]+base[4]*image[i+j]+base[3]*image[i+depth+j];
+                newValue += base[2]*image[lowerPixel-depth+j]+base[1]*image[lowerPixel+j]+base[0]*image[lowerPixel+depth+j];
+                if(newValue > 255){
+                    newValue = 255.0;
+                } else if(newValue < 0){
+                    newValue = 0.0;
+                }
+                int integerValue = (int)newValue;
+                image[i+j] = integerValue;
+
+            }
+
+        }
+    }
+}

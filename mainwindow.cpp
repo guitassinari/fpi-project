@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
                          this, SLOT(enhanceContrast()));
     QObject::connect(ui->BrightnessButton, SIGNAL(clicked(bool)),
                          this, SLOT(enhanceBrightness()));
+    QObject::connect(ui->ConvolutionButton, SIGNAL(clicked(bool)),
+                         this, SLOT(convolute()));
 }
 
 
@@ -136,4 +138,21 @@ void MainWindow::enhanceContrast(){
     double contrastValue = ui->ContrastValue->value();
     currentImage->enhanceContrast(contrastValue);
     updateEditedImageView(currentImage);
+}
+
+void MainWindow::convolute(){
+    float convolutionMatrix[9];
+    convolutionMatrix[0] = ui->MatrixValue0->value();
+    convolutionMatrix[1] = ui->MatrixValue1->value();
+    convolutionMatrix[2] = ui->MatrixValue2->value();
+    convolutionMatrix[3] = ui->MatrixValue3->value();
+    convolutionMatrix[4] = ui->MatrixValue4->value();
+    convolutionMatrix[5] = ui->MatrixValue5->value();
+    convolutionMatrix[6] = ui->MatrixValue6->value();
+    convolutionMatrix[7] = ui->MatrixValue7->value();
+    convolutionMatrix[8] = ui->MatrixValue8->value();
+    currentImage->convolute(convolutionMatrix);
+    updateEditedImageView(currentImage);
+
+
 }
